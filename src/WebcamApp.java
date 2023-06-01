@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.FontUIResource;
 
 public class WebcamApp extends JFrame implements ActionListener {
@@ -34,8 +35,15 @@ public class WebcamApp extends JFrame implements ActionListener {
     private MailSender mailSender;
 
     // galerimizin olacağı path
-    private final String sharedPicturesFile = "C:\\Users\\enesb\\OneDrive\\Masaüstü\\Pictures";
+    private String sharedPicturesFile;
     public WebcamApp() {
+
+        // Masaüstünde Pictures adlı bir galeri oluşturmaya / ulaşmaya çalışmak için adres alıyoruz
+        FileSystemView view = FileSystemView.getFileSystemView();
+        File file = view.getHomeDirectory();
+        String desktopPath = file.getPath();
+
+        sharedPicturesFile = desktopPath + File.separator + "Pictures";
 
         try {
             // uygulamamızı modern swing görünümününe çeviriyoruz
@@ -79,7 +87,7 @@ public class WebcamApp extends JFrame implements ActionListener {
 
         filter1Button = new MyButton("Siyah-Beyaz", colorPalette.cyan, colorPalette.red);
         filter1Button.addActionListener(this);
-        filter2Button = new MyButton("Sarı", colorPalette.cyan, colorPalette.red);
+        filter2Button = new MyButton("Kırmızı", colorPalette.cyan, colorPalette.red);
         filter2Button.addActionListener(this);
         filter3Button = new MyButton("Parlat", colorPalette.cyan, colorPalette.red);
         filter3Button.addActionListener(this);
@@ -221,7 +229,7 @@ public class WebcamApp extends JFrame implements ActionListener {
             photoPanel.getGraphics().drawImage(photo, 0, 0, null);
         }
         else if (e.getSource() == filter2Button) {
-            photo = ImageFilters.applyYellowFilter(photo);
+            photo = ImageFilters.applyColorEffect(photo);
             photoPanel.getGraphics().drawImage(photo, 0, 0, null);
         }
         else if (e.getSource() == filter3Button) {

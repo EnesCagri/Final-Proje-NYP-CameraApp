@@ -14,7 +14,7 @@ public class ImageFilters {
         return filtered;
     }
 
-    public static BufferedImage applyYellowFilter(BufferedImage original) {
+    public static BufferedImage applyColorEffect(BufferedImage original) {
         BufferedImage filtered = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < original.getWidth(); x++) {
             for (int y = 0; y < original.getHeight(); y++) {
@@ -22,17 +22,21 @@ public class ImageFilters {
                 int r = (rgb >> 16) & 0xFF;
                 int g = (rgb >> 8) & 0xFF;
                 int b = rgb & 0xFF;
-                int yuv = (int) (0.299 * r + 0.587 * g + 0.114 * b);
-                int u = (int) (-0.14713 * r - 0.28886 * g + 0.436 * b);
-                int v = (int) (0.615 * r - 0.51498 * g - 0.10001 * b);
-                int r2 = (int) (yuv + 1.13983 * v);
-                int g2 = (int) (yuv - 0.39465 * u - 0.5806 * v);
-                int b2 = (int) (yuv + 2.03211 * u);
-                r2 = Math.max(0, Math.min(255, r2));
-                g2 = Math.max(0, Math.min(255, g2));
-                b2 = Math.max(0, Math.min(255, b2));
-                int rgb2 = (r2 << 16) | (g2 << 8) | b2;
-                filtered.setRGB(x, y, rgb2);
+
+                int intensity = (r + g + b) / 3; // Calculate the intensity of the pixel
+
+                int threshold = 100; // Adjust this threshold value to control the sensitivity of color detection
+
+                if (intensity < threshold) {
+                    // Convert subtle colors to black and white
+                    int grayscale = (intensity << 16) | (intensity << 8) | intensity;
+                    filtered.setRGB(x, y, grayscale);
+                } else {
+                    // Make prominent colors appear red
+                    int red = 255;
+                    int redPixel = (red << 16) | (0 << 8) | 0;
+                    filtered.setRGB(x, y, redPixel);
+                }
             }
         }
         return filtered;
