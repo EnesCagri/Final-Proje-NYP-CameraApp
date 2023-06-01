@@ -1,0 +1,87 @@
+@startuml
+
+class TekClass {
+  +main(String[]): void
+}
+
+class WebcamApp {
+  -saveButton: MyButton
+  -takeButton: MyButton
+  -galleryButton: MyButton
+  -filter1Button: MyButton
+  -filter2Button: MyButton
+  -filter3Button: MyButton
+  -filter4Button: MyButton
+  -filter5Button: MyButton
+  -filter6Button: MyButton
+  -shareButton: MyButton
+  -webcamPanel: JPanel
+  -buttonPanel: JPanel
+  -filterPanel: JPanel
+  -photoPanel: JPanel
+  -photo: BufferedImage
+  -webcam: Webcam
+  -colorPalette: ColorPalette
+  -accessToken: String
+  -senderEmail: String
+  -password: String
+  -facebookHandler: FacebookHandler
+  -mailSender: MailSender
+  -sharedPicturesFile: String
+  +WebcamApp()
+  +takePhoto(): void
+  +saveSharedImage(): void
+  +scaleImage(BufferedImage, int, int): BufferedImage
+  +actionPerformed(ActionEvent): void
+}
+
+class ColorPalette {
+  -navy: Color
+  -gray: Color
+  -red: Color
+  -cyan: Color
+  -yellow: Color
+  -white: Color
+  -black: Color
+}
+
+class MyButton {
+  -hoverBackgroundColor: Color
+  -pressedBackgroundColor: Color
+  +MyButton(String, Color, Color)
+}
+
+class PictureGallery {
+  -picturePanel: JPanel
+  -imageWidth: int
+  -imageHeight: int
+  +PictureGallery(String)
+}
+
+class FacebookHandler {
+  -accessToken: String
+  +FacebookHandler(String)
+}
+
+class MailSender {
+  -senderEmail: String
+  -password: String
+  -host: String
+  -port: String
+  +MailSender(String, String, String, String)
+  +sendMulitpleEmail(String, String, String, BufferedImage): void
+}
+
+TekClass --> WebcamApp
+WebcamApp "1" --> "*" MyButton
+WebcamApp --> JPanel
+WebcamApp --> BufferedImage
+WebcamApp --> Webcam
+WebcamApp --> ColorPalette
+WebcamApp --> FacebookHandler
+WebcamApp --> MailSender
+WebcamApp --> PictureGallery
+MyButton --> Color
+PictureGallery --> JPanel
+
+@enduml
