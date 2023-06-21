@@ -26,9 +26,9 @@ public class WebcamApp extends JFrame implements ActionListener {
     private ColorPalette colorPalette = new ColorPalette();
 
     // facebook için accessToken almıştık ancak API işlemlerinde sıkıntı oldu
-    private final String accessToken = "EAADna409yk4BACqiRA2aoPiEMQIoX2ByrFMHqii34UVf0HYb8WpVtJoPcMxSPxcgFyTLUpLNFvyZBiRdgyOsjIOIgLVEpQZAZCrQngHUAu2siRZBRqodBnlkh8hCtopT7ZA3UhOc7wzxSK8KfjFnsLNeLXKj66AzrCFiWSSyU0f6XyiAjIlrqRbnZCT8BAYfkZD";
-    private final String senderEmail = "enesbayraktutancagri@gmail.com";
-    private final String password = "fzswzrtelnxmkocb";
+    private final String accessToken = "accesstoken";
+    private final String senderEmail = "yourmail@gmail.com";
+    private final String password = "password";
 
     // facebook içindi ancak kullanmayacağız
     private final FacebookHandler facebookHandler = new FacebookHandler(accessToken);
